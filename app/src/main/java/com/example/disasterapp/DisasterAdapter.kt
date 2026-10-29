@@ -6,17 +6,24 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.disasterapp.databinding.ItemDisasterBinding
 
-class DisasterAdapter (private val listDisaster : List<Disaster>) :
+typealias OnClickDisaster = (Disaster) -> Unit
+class DisasterAdapter(private val listDisaster: List<Disaster>
+,private val onClickDisaster: OnClickDisaster) :
     RecyclerView.Adapter<DisasterAdapter.ItemDisasterViewHolder>() {
-    inner class ItemDisasterViewHolder(private val binding: ItemDisasterBinding) :
+    inner class ItemDisasterViewHolder(private val binding:
+                                       ItemDisasterBinding) :
         RecyclerView.ViewHolder(binding.root) {
-            fun bind(data: Disaster) {
-                with(binding) {
-                    txtDisasterName.text = data.nameDisaster
-                    txtDisasterType.text = data.disasterType
+        fun bind(data: Disaster) {
+
+            with(binding) {
+                txtDisasterName.text = data.nameDisaster
+                txtDisasterType.text = data.disasterType
+                itemView.setOnClickListener {
+                    onClickDisaster(data)
                 }
             }
         }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
             ItemDisasterViewHolder {
