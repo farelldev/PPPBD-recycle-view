@@ -1,14 +1,10 @@
 package com.example.disasterapp
 
-import Disaster
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.disasterapp.databinding.ActivityMainBinding
-import androidx.recyclerview.widget.LinearLayoutManager
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -18,27 +14,26 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val adapterDisaster = DisasterAdapter(generateDummy()) { disaster ->
-            Toast.makeText(this@MainActivity, "You clicked on
-                ${disaster.nameDisaster}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@MainActivity, "You clicked on ${disaster.nameDisaster}", Toast.LENGTH_SHORT).show()
         }
         with(binding) {
             rvDisaster.apply {
                 adapter = adapterDisaster
-                layoutManager = LinearLayoutManager(this@MainActivity)
+                layoutManager = GridLayoutManager(this@MainActivity, 2)
             }
         }
     }
 
     fun generateDummy(): List<Disaster> {
         return listOf(
-            Disaster(nameDisaster = "Tsunami", disasterType = "Natural"),
-            Disaster(nameDisaster = "Volcanic Eruption", disasterType = "Natural"),
-            Disaster(nameDisaster = "Earthquake", disasterType = "Natural"),
-            Disaster(nameDisaster = "Flood", disasterType = "Natural"),
-            Disaster(nameDisaster = "Fire", disasterType = "Natural"),
-            Disaster(nameDisaster = "Nuclear Accident", disasterType = "Man-made"),
-            Disaster(nameDisaster = "Terrorist Attack", disasterType = "Man-made"),
-            Disaster(nameDisaster = "War", disasterType = "Man-made")
+            Disaster("Tsunami", "Natural", R.drawable.tsunami),
+            Disaster("Volcanic Eruption", "Natural", R.drawable.volcano),
+            Disaster("Earthquake", "Natural", R.drawable.earthquake),
+            Disaster("Flood", "Natural", R.drawable.flood),
+            Disaster("Fire", "Natural", R.drawable.fire),
+            Disaster("Nuclear Accident", "Man-made", R.drawable.nuclear),
+            Disaster("Terrorist Attack", "Man-made", R.drawable.terrorist),
+            Disaster("War", "Man-made", R.drawable.war)
         )
     }
 }

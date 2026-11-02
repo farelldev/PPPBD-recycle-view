@@ -1,6 +1,5 @@
 package com.example.disasterapp
 
-import Disaster
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -11,13 +10,14 @@ class DisasterAdapter(private val listDisaster: List<Disaster>
 ,private val onClickDisaster: OnClickDisaster) :
     RecyclerView.Adapter<DisasterAdapter.ItemDisasterViewHolder>() {
     inner class ItemDisasterViewHolder(private val binding:
-                                       ItemDisasterBinding) :
+       ItemDisasterBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: Disaster) {
 
             with(binding) {
                 txtDisasterName.text = data.nameDisaster
                 txtDisasterType.text = data.disasterType
+                imgDisaster.setImageResource(data.imageRes)
                 itemView.setOnClickListener {
                     onClickDisaster(data)
                 }
@@ -33,9 +33,11 @@ class DisasterAdapter(private val listDisaster: List<Disaster>
                 false)
         return ItemDisasterViewHolder(binding)
     }
+
     override fun getItemCount(): Int {
         return listDisaster.size
     }
+
     override fun onBindViewHolder(holder: ItemDisasterViewHolder, position:
     Int) {
         holder.bind(listDisaster[position])
